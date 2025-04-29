@@ -1,0 +1,54 @@
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            // Solicitar os dados do usuário
+            System.out.print("Digite o valor do investimento inicial (P): ");
+            double P = scanner.nextDouble();
+
+            System.out.print("Digite a taxa de juros anual (r): ");
+            double r = scanner.nextDouble();
+
+            System.out.print("Digite o período de investimento em anos (t): ");
+            int t = scanner.nextInt();
+
+            System.out.print("Digite a opção de capitalização (simples ou composta): ");
+            String capitalizacao = scanner.next();
+
+            // Calcular o montante (M)
+            double M;
+            if (capitalizacao.equalsIgnoreCase("simples")) {
+                M = calcularMontanteSimples(P, r, t);
+            } else if (capitalizacao.equalsIgnoreCase("composta")) {
+                M = calcularMontanteComposto(P, r, t);
+            } else {
+                System.out.println("Opção de capitalização inválida.");
+                continue;
+            }
+
+            // Exibir o valor do montante calculado
+            System.out.println("O montante ao final do período é: " + M);
+
+            // Perguntar se o usuário deseja realizar um novo cálculo
+            System.out.print("Deseja realizar um novo cálculo? (s/n): ");
+            String resposta = scanner.next();
+            if (!resposta.equalsIgnoreCase("s")) {
+                break;
+            }
+        }
+    }
+
+    // Função para calcular o montante com capitalização simples
+    public static double calcularMontanteSimples(double P, double r, int t) {
+        return P * (1 + (r / 100) * t);
+    }
+
+    // Função para calcular o montante com capitalização composta
+    public static double calcularMontanteComposto(double P, double r, int t) {
+        return P * Math.pow((1 + (r / 100)), t);
+    }
+}
